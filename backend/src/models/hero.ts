@@ -5,7 +5,7 @@ const heroSchema = new Schema({
   name: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   img: {
     type: Buffer,

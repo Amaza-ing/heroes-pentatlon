@@ -4,19 +4,23 @@
 
 Ejecutar el backend desde la carpeta raíz:
 
-``` cd backend ```<br/>
-``` npm install ```<br/>
-``` nodemon server.js ```<br/>
+`cd backend`<br/>
+`npm install`<br/>
+`npm start`<br/>
 
 Ejecutar el frontend desde la carpeta raíz:
 
-``` cd frontend ```<br/>
-``` npm install ```<br/>
-``` npm run dev ```<br/>
+`cd frontend`<br/>
+`npm install`<br/>
+`npm run dev`<br/>
 
 ##
 
-El proyecto está montado para que funcione en los puertos 3000 (backend) y 5173 (frontend)
+### Variables de entorno
+
+El proyecto está montado para que funcione en los puertos 3000 (backend) y cualquiera para el frontend.
+<br/>
+Se puede habilitar una URL concreta para el front desde el fichero .env (por ejemplo: http://localhost:5173)
 
 La API_URL es: http://localhost:3000/api/v1/hero
 

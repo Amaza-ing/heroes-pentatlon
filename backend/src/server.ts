@@ -26,7 +26,10 @@ app.use((err, req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const corsOptions = { origin: "http://localhost:5173" };
+const corsOptions = process.env.FRONTEND_URL
+  ? { origin: process.env.FRONTEND_URL }
+  : {};
+
 app.use(cors(corsOptions));
 
 // Connect to database

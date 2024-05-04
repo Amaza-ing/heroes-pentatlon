@@ -34,7 +34,7 @@ const getHero = async (req, res) => {
 
 const postHero = async (req, res) => {
   const img = fs.readFileSync(req.file.path, "base64");
-  const body = { ...req.body, img}
+  const body = { ...req.body, img };
   const hero = new Hero(body);
 
   try {

@@ -8,9 +8,6 @@ const options = {
 };
 
 const strategy = new JwtStrategy(options, async (payload, done) => {
-  //    let user = null;
-  //    user = await userService.getOneBy({ username: payload.user.username });
-
   if (payload.token != process.env.TOKEN)
     return done(null, false, { message: "Something goes wrong!!" });
   return done(null, payload.token);
