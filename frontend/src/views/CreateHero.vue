@@ -17,9 +17,8 @@ const hero = ref({
   charm: 0,
 });
 
-const handleFileUpload = (e) => {
+const handleFileUpload = (e: any) => {
   hero.value.img = e.target.files[0];
-  console.log(hero.value.img);  
 }
 
 const create = () => {

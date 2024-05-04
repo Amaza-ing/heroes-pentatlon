@@ -1,16 +1,18 @@
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { Ref, onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useHeroStore } from "../stores/hero.ts";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import MainTitle from "../components/MainTitle.vue";
 import ButtonComponent from "../components/ButtonComponent.vue";
+import Hero from "../models/Hero.ts";
 
 const heroStore = useHeroStore();
 
 const route = useRoute();
 
-const hero = ref({
+const hero: Ref<Hero> = ref({
+  _id: "",
   name: "",
   agility: 0,
   strength: 0,
@@ -20,14 +22,14 @@ const hero = ref({
 });
 
 onMounted(async () => {
-  const name = route.params.name;
+  const name = route.params.name as string;
   const data = await heroStore.getHero(name);
   hero.value = data;
   delete hero.value.img;
 });
 
 const update = () => {
-  heroStore.updateHero(hero.value, hero.value._id);
+  heroStore.updateHero(hero.value, hero.value._id as string);
 };
 </script>
 

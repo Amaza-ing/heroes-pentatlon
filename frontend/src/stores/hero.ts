@@ -1,13 +1,14 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
+import { Ref, ref } from "vue";
 import { alerts } from "../utils/alerts.ts";
+import Hero from "../models/Hero.ts";
 
 const API_URL = "http://localhost:3000/api/v1/heroes";
 
 export const useHeroStore = defineStore("hero", () => {
   let token = ref("");
-  const heroes = ref([]);
-  const selectedHeroes = ref([]);
+  const heroes: Ref<Hero[]> = ref([]);
+  const selectedHeroes: Ref<Hero[]> = ref([]);
 
   const getToken = async () => {
     try {
@@ -42,7 +43,7 @@ export const useHeroStore = defineStore("hero", () => {
     }
   };
 
-  const getHero = async (name) => {
+  const getHero = async (name: string) => {
     try {
       const response = await fetch(`${API_URL}/${name}`, {
         headers: {
@@ -58,7 +59,7 @@ export const useHeroStore = defineStore("hero", () => {
     }
   };
 
-  const createHero = async (body) => {
+  const createHero = async (body: Hero) => {
     if (!token.value) {
       alerts.info("Necesitas hacer logIn para crear un heroe");
       return;
@@ -66,8 +67,8 @@ export const useHeroStore = defineStore("hero", () => {
     try {
       let formData = new FormData();
       Object.keys(body).forEach((key) => {
-        formData.append(key, body[key])
-      })
+        formData.append(key, body[key]);
+      });
 
       const response = await fetch(API_URL, {
         method: "POST",
@@ -88,7 +89,7 @@ export const useHeroStore = defineStore("hero", () => {
     }
   };
 
-  const updateHero = async (body, id) => {
+  const updateHero = async (body: Hero, id: string) => {
     if (!token.value) {
       alerts.info("Necesitas hacer logIn para crear un heroe");
       return;
@@ -129,7 +130,7 @@ export const useHeroStore = defineStore("hero", () => {
     }
   };
 
-  const selectHero = (hero) => {
+  const selectHero = (hero: Hero) => {
     const heroIndex = selectedHeroes.value.indexOf(hero);
     if (heroIndex === -1) selectedHeroes.value.push(hero);
     else selectedHeroes.value.splice(heroIndex, 1);
@@ -137,7 +138,7 @@ export const useHeroStore = defineStore("hero", () => {
 
   const resetSelect = () => {
     selectedHeroes.value = [];
-  }
+  };
 
   return {
     token,

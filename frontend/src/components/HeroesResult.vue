@@ -1,17 +1,19 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
 import { useHeroStore } from "../stores/hero.ts";
-import { getBase64Img } from "../utils/images.ts";
+// import { getBase64Img } from "../utils/images.ts";
+import Hero from "../models/Hero.ts";
 import MainTitle from "./MainTitle.vue";
+import Results from "../models/Results.ts";
 
 const heroStore = useHeroStore();
 
-const resultsArr = reactive([{}, {}, {}]);
+const resultsArr: [Results] | any = reactive([{}, {}, {}]);
 
 const show = ref(false);
 
 const setInfo = () => {
-  heroStore.selectedHeroes.forEach((hero, index) => {
+  heroStore.selectedHeroes.forEach((hero: Hero, index) => {
     resultsArr[index]["id"] = hero._id;
     resultsArr[index]["name"] = hero.name;
     resultsArr[index]["img"] = hero.img;
@@ -21,19 +23,19 @@ const setInfo = () => {
   });
 };
 
-const setClassification = (trial) => {
-  const sortedResults = resultsArr.toSorted((a, b) => {
-    return b[trial] - a[trial];
+const setClassification = (trial: string) => {
+  const sortedResults = resultsArr.toSorted((a: Results, b: Results) => {
+    return b[trial as keyof Results] - a[trial as keyof Results];
   });
 
   const firstHeroId = sortedResults[0].id;
   const secondHeroId = sortedResults[1].id;
   const thirdHeroId = sortedResults[2].id;
 
-  resultsArr.forEach((hero) => {
-    if (firstHeroId === hero.id) hero.wins++;
-    if (secondHeroId === hero.id) hero.second++;
-    if (thirdHeroId === hero.id) hero.last++;
+  resultsArr.forEach((results: Results) => {
+    if (firstHeroId === results.id) results.wins++;
+    if (secondHeroId === results.id) results.second++;
+    if (thirdHeroId === results.id) results.last++;
   });
 };
 
@@ -61,7 +63,7 @@ const joking = () => {
 };
 
 const shooting = () => {
-  const sortedResults = resultsArr.toSorted((a, b) => {
+  const sortedResults = resultsArr.toSorted((a: Results, b: Results) => {
     return a.climbing + a.joking - b.climbing - b.joking;
   });
 
@@ -78,7 +80,7 @@ const shooting = () => {
 };
 
 const racing = () => {
-  const sortedResults = resultsArr.toSorted((a, b) => {
+  const sortedResults = resultsArr.toSorted((a: Results, b: Results) => {
     return b.shooting - a.shooting;
   });
 
@@ -91,7 +93,7 @@ const racing = () => {
     resultsArr[index]["racing"] = result;
   });
 
-  setClassification(racing);
+  setClassification("racing");
 };
 
 const rescuing = () => {
@@ -102,18 +104,18 @@ const rescuing = () => {
     resultsArr[index]["rescuing"] = result;
   });
 
-  setClassification(rescuing);
+  setClassification("rescuing");
 };
 
 const calculateTotal = () => {
-  resultsArr.forEach((hero) => {
-    const total = hero.wins * 5 + hero.second * 3 + hero.last;
-    hero.total = total;
+  resultsArr.forEach((results: Results) => {
+    const total = results.wins * 5 + results.second * 3 + results.last;
+    results.total = total;
   });
 };
 
 const showResults = () => {
-  resultsArr.sort((a, b) => b.total - a.total);
+  resultsArr.sort((a: Results, b: Results) => b.total - a.total);
   show.value = true;
 };
 
