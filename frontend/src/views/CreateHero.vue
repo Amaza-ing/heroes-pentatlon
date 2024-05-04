@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useHeroStore } from "../stores/hero.ts";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import MainTitle from "../components/MainTitle.vue";
 import ButtonComponent from "../components/ButtonComponent.vue";
 
+const router = useRouter();
 const heroStore = useHeroStore();
 
 const hero = ref({
@@ -21,8 +23,10 @@ const handleFileUpload = (e: any) => {
   hero.value.img = e.target.files[0];
 }
 
-const create = () => {
-  heroStore.createHero(hero.value);
+const create = async () => {
+  await heroStore.createHero(hero.value);
+  heroStore.resetSelect();
+  router.push({ name: "heroes" });
 };
 </script>
 

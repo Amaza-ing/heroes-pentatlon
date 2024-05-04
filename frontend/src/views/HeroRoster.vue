@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, ref } from "vue";
 import { useHeroStore } from "../stores/hero.ts";
 import HeaderComponent from "../components/HeaderComponent.vue";
 import MainTitle from "../components/MainTitle.vue";
@@ -12,6 +12,13 @@ const heroStore = useHeroStore();
 onMounted(() => {
   if (heroStore.token) heroStore.getHeroes();
 });
+
+const loading = ref(true);
+
+const login = async () => {
+  await heroStore.getToken();
+  loading.value = false;
+}
 </script>
 
 <template>
@@ -29,10 +36,11 @@ onMounted(() => {
 
       <h3 v-if="!heroStore.token" class="py-10 text-center">
         <p>Debes logarte para ver los heroes</p>
-        <ButtonComponent class="my-4" @click="heroStore.getToken()">
+        <ButtonComponent class="my-4" @click="login">
           LogIn
         </ButtonComponent>
       </h3>
+      <h3 v-else-if="loading" class="py-10 text-center">loading...</h3>
       <h3 v-else-if="!heroStore.heroes.length" class="py-10 text-center">
         <p>No tienes ningún heroe</p>
         <ButtonComponent class="my-4">

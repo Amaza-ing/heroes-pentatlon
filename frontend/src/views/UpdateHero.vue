@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Ref, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useRoute } from "vue-router";
 import { useHeroStore } from "../stores/hero.ts";
 import HeaderComponent from "../components/HeaderComponent.vue";
@@ -7,6 +8,7 @@ import MainTitle from "../components/MainTitle.vue";
 import ButtonComponent from "../components/ButtonComponent.vue";
 import Hero from "../models/Hero.ts";
 
+const router = useRouter();
 const heroStore = useHeroStore();
 
 const route = useRoute();
@@ -28,8 +30,10 @@ onMounted(async () => {
   delete hero.value.img;
 });
 
-const update = () => {
-  heroStore.updateHero(hero.value, hero.value._id as string);
+const update = async () => {
+  await heroStore.updateHero(hero.value, hero.value._id as string);
+  heroStore.resetSelect();
+  router.push({ name: "heroes" });
 };
 </script>
 
