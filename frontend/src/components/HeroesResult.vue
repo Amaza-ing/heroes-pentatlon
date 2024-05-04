@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from "vue";
 import { useHeroStore } from "../stores/hero.ts";
-// import { getBase64Img } from "../utils/images.ts";
 import Hero from "../models/Hero.ts";
 import MainTitle from "./MainTitle.vue";
 import Results from "../models/Results.ts";
@@ -152,11 +151,6 @@ onMounted(() => {
         <p>{{ result.total }}</p>
         <p>Puntos</p>
       </div>
-      <!-- <img
-        :src="getBase64Img(result.img) || ''"
-        :alt="`${result.name} picture`"
-        class="w-16 h-16 rounded-full"
-      /> -->
       <h3>{{ result.name }}</h3>
     </li>
   </ul>

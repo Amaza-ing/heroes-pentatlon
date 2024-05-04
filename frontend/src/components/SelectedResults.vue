@@ -1,31 +1,21 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 import { useHeroStore } from "../stores/hero.ts";
-import { alerts } from "../utils/alerts.ts";
 import { getBase64Img } from "../utils/images.ts";
 import ButtonComponent from "./ButtonComponent.vue";
 
 const router = useRouter();
 const heroStore = useHeroStore();
 
-const getResults = () => {
-  if (heroStore.selectedHeroes.length < 3) {
-    alerts.info("Necesitas seleccionar 3 héroes");
-  } else {
-    router.push({ name: "results" });
-  }
+const goToHeroes = () => {
+  heroStore.resetSelect();
+  router.push({ name: "heroes" });
 };
 </script>
 
 <template>
   <h2 class="mt-10 text-center text-2xl">Heroes Elegidos</h2>
-  <p
-    v-if="!heroStore.selectedHeroes.length"
-    class="min-h-40 text-sm text-gray-400 flex justify-center items-center"
-  >
-    Aquí aparecerán tus heroes...
-  </p>
-  <div v-else>
+  <div>
     <ul class="flex justify-around">
       <li
         v-for="hero in heroStore.selectedHeroes"
@@ -41,8 +31,8 @@ const getResults = () => {
       </li>
     </ul>
 
-    <ButtonComponent class="block mx-auto" @click="getResults">
-      Combatir
+    <ButtonComponent class="block mx-auto" @click="goToHeroes">
+      Seleccionar heroes
     </ButtonComponent>
   </div>
   <hr class="my-10" />

@@ -4,6 +4,7 @@ import HomeView from "../views/HomeView.vue";
 import HeroRoster from "../views/HeroRoster.vue";
 import CreateHero from "../views/CreateHero.vue";
 import UpdateHero from "../views/UpdateHero.vue";
+import ResultsView from "../views/ResultsView.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: "/update/:name",
       name: "update",
       component: UpdateHero,
+    },
+    {
+      path: "/results",
+      name: "results",
+      component: ResultsView,
     },
   ],
 });
