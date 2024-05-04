@@ -16,9 +16,9 @@ const heroStore = useHeroStore();
     <HeroesResult></HeroesResult>
   </section>
   <section v-else class="my-20">
-    <MainTitle>Necesitas estar logado para ver los resultados</MainTitle>
+    <MainTitle>Necesitas estar logado y seleccionar héroes para ver los resultados</MainTitle>
     <ButtonComponent class="block mx-auto my-20">
-      <RouterLink :to="{ name: 'heroes' }" class="cursor-pointer text-2xl p-3">
+      <RouterLink :to="{ name: 'heroes' }" class="cursor-pointer">
         Seleccionar los Heroes
       </RouterLink>
     </ButtonComponent>

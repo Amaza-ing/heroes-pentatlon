@@ -9,8 +9,9 @@ import ButtonComponent from "../components/ButtonComponent.vue";
 
 const heroStore = useHeroStore();
 
-onMounted(() => {
-  if (heroStore.token) heroStore.getHeroes();
+onMounted(async () => {
+  if (heroStore.token) await heroStore.getHeroes();
+  if (heroStore.token) loading.value = false;
 });
 
 const loading = ref(true);

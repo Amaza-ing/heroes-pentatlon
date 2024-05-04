@@ -91,7 +91,7 @@ export const useHeroStore = defineStore("hero", () => {
 
   const updateHero = async (body: Hero, id: string) => {
     if (!token.value) {
-      alerts.info("Necesitas hacer logIn para crear un heroe");
+      alerts.info("Necesitas hacer logIn para actualizar un heroe");
       return;
     }
     try {
