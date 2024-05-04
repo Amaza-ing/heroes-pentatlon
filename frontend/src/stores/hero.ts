@@ -67,7 +67,7 @@ export const useHeroStore = defineStore("hero", () => {
     try {
       let formData = new FormData();
       Object.keys(body).forEach((key) => {
-        formData.append(key, body[key]);
+        formData.append(key, body[key as keyof Hero]);
       });
 
       const response = await fetch(API_URL, {
