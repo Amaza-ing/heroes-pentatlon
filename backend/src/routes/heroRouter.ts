@@ -5,8 +5,6 @@ const passport = require("passport");
 const multer = require("multer");
 const upload = multer({ dest: "./public/tmp/" });
 
-router.post("/testUpload", upload.single("myFile"), heroController.testUpload);
-
 router.get("/token", heroController.getToken);
 
 router.get(

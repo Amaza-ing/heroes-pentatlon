@@ -35,7 +35,7 @@ connectionRetry();
 // Routers
 require("./routes/index")(app);
 
-process.env.PORT = process.env.PORT || 3000;
+process.env.PORT = process.env.PORT || "3000";
 app.listen(process.env.PORT, () => {
   console.log(`\n\x1b[32mServer is running on port ${process.env.PORT}\x1b[0m`);
 });

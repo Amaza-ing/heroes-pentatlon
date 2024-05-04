@@ -3,14 +3,6 @@ const { sign } = require("jsonwebtoken");
 const Hero = require("../models/hero");
 const fs = require("fs");
 
-const testUpload = async (req, res) => {
-  console.log(req.file);
-  const fileDataBase64 = fs.readFileSync(req.file.path, "base64");
-  console.log(fileDataBase64);
-
-  res.status(200).json(fileDataBase64);
-};
-
 const getToken = async (req, res) => {
   const jsontoken = sign({ token: process.env.TOKEN }, process.env.SECRET_KEY, {
     expiresIn: "1d",
@@ -76,7 +68,6 @@ const deleteHero = async (req, res) => {
 };
 
 module.exports = {
-  testUpload,
   getToken,
   getHeroes,
   getHero,
