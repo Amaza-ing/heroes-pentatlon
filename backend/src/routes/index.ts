@@ -4,7 +4,7 @@ module.exports = (app: Express) => {
   const API_URL = "/api/v" + process.env.API_VERSION;
 
   const heroRouter = require("./heroRouter");
-  app.use(API_URL + "/hero", heroRouter);
+  app.use(API_URL + "/heroes", heroRouter);
 
   app.get(API_URL, (req, res) => {
     res.json({ message: "Welcome to HERO API" });

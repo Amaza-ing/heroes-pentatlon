@@ -42,7 +42,7 @@ const postHero: RequestHandler = async (req: any, res) => {
 
     await hero.save();
     fs.unlink(req.file.path, () => {});
-    res.status(200).json(hero);
+    res.status(201).json(hero);
   } catch (error) {
     res.status(400).send(error);
   }

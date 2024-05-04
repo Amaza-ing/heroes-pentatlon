@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import { ref } from "vue";
 import { alerts } from "../utils/alerts.ts";
 
-const API_URL = "http://localhost:3000/api/v1/hero";
+const API_URL = "http://localhost:3000/api/v1/heroes";
 
 export const useHeroStore = defineStore("hero", () => {
   let token = ref("");
