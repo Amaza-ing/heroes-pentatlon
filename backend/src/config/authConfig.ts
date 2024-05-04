@@ -7,12 +7,12 @@ const options = {
   algorithms: ["HS512"],
 };
 
-const strategy = new JwtStrategy(options, async (payload, done) => {
+const strategy = new JwtStrategy(options, async (payload: any, done: any) => {
   if (payload.token != process.env.TOKEN)
     return done(null, false, { message: "Something goes wrong!!" });
   return done(null, payload.token);
 });
 
-module.exports = (passport) => {
+module.exports = (passport: any) => {
   passport.use(strategy);
 };

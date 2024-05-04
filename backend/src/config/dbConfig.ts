@@ -10,7 +10,7 @@ const connectionRetry = async () => {
     await mongoose.connect(dbURI);
     connected = true;
     console.log("\x1b[32mConnected to database\x1b[0m");
-  } catch (err) {
+  } catch (err: any) {
     console.log("\x1b[31m[ERROR] Connect: " + err.message + " \x1b[0m");
   }
 

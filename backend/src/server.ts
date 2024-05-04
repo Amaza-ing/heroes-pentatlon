@@ -1,11 +1,11 @@
 require("dotenv").config();
-const express = require("express");
+import express, { Express, Request, Response, NextFunction } from "express";
 const cors = require("cors");
 const connectionRetry = require("./config/dbConfig");
 const passport = require("passport");
 const openAPI = require("./config/openAPI");
 
-const app = express();
+const app: Express = express();
 
 require("./config/authConfig")(passport);
 app.use(passport.initialize());
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV == "development") {
 }
 
 // Errors in json format
-app.use((err, req, res, next) => {
+app.use((err: unknown, req: Request, res: Response, next: NextFunction) => {
   return res.status(500).send({ error: err });
 });
 

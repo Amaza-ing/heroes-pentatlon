@@ -1,9 +1,11 @@
+import { RequestHandler } from "express";
+
 const { sign } = require("jsonwebtoken");
 
 const Hero = require("../models/hero");
 const fs = require("fs");
 
-const getToken = async (req, res) => {
+const getToken: RequestHandler = async (req, res) => {
   const jsontoken = sign({ token: process.env.TOKEN }, process.env.SECRET_KEY, {
     expiresIn: "1d",
     algorithm: "HS512",
@@ -12,7 +14,7 @@ const getToken = async (req, res) => {
   res.status(200).json(jsontoken);
 };
 
-const getHeroes = async (req, res) => {
+const getHeroes: RequestHandler = async (req, res) => {
   try {
     const heroes = await Hero.find();
     res.send(heroes);
@@ -21,7 +23,7 @@ const getHeroes = async (req, res) => {
   }
 };
 
-const getHero = async (req, res) => {
+const getHero: RequestHandler = async (req, res) => {
   const name = req.params.name;
 
   try {
@@ -32,20 +34,21 @@ const getHero = async (req, res) => {
   }
 };
 
-const postHero = async (req, res) => {
-  const img = fs.readFileSync(req.file.path, "base64");
-  const body = { ...req.body, img };
-  const hero = new Hero(body);
-
+const postHero: RequestHandler = async (req: any, res) => {
   try {
+    const img = fs.readFileSync(req.file.path, "base64");
+    const body = { ...req.body, img };
+    const hero = new Hero(body);
+
     await hero.save();
+    fs.unlink(req.file.path, () => {});
     res.status(200).json(hero);
   } catch (error) {
     res.status(400).send(error);
   }
 };
 
-const putHero = async (req, res) => {
+const putHero: RequestHandler = async (req, res) => {
   const id = req.params.id;
 
   try {
@@ -56,7 +59,7 @@ const putHero = async (req, res) => {
   }
 };
 
-const deleteHero = async (req, res) => {
+const deleteHero: RequestHandler = async (req, res) => {
   const id = req.params.id;
 
   try {

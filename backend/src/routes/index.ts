@@ -1,4 +1,6 @@
-module.exports = (app) => {
+import { Express } from "express";
+
+module.exports = (app: Express) => {
   const API_URL = "/api/v" + process.env.API_VERSION;
 
   const heroRouter = require("./heroRouter");
@@ -9,7 +11,7 @@ module.exports = (app) => {
   });
 
   // 404 error
-  app.use(function (req, res, next) {
+  app.use((req, res) => {
     res.status(404).json({
       error: {
         errors: [
