@@ -1,9 +1,9 @@
 import { RequestHandler } from "express";
+import { resizeImage } from "../services/heroService";
 
 const { sign } = require("jsonwebtoken");
 
 const Hero = require("../models/hero");
-const fs = require("fs");
 
 const getToken: RequestHandler = async (req, res) => {
   const jsontoken = sign({ token: process.env.TOKEN }, process.env.SECRET_KEY, {
@@ -36,12 +36,12 @@ const getHero: RequestHandler = async (req, res) => {
 
 const postHero: RequestHandler = async (req: any, res) => {
   try {
-    const img = fs.readFileSync(req.file.path, "base64");
+    const img = await resizeImage(req.file.path);
+
     const body = { ...req.body, img };
     const hero = new Hero(body);
 
     await hero.save();
-    fs.unlink(req.file.path, () => {});
     res.status(201).json(hero);
   } catch (error) {
     res.status(400).send(error);
